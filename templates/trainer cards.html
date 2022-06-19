@@ -1,0 +1,41 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<style>
+    th{ 
+        color:#fff;
+            }
+</style>
+
+<table class="table table-striped">
+    <tr  class="bg-dark">
+        <th>Name</th>
+        <th>Rarity</th>
+    </tr>
+    <tbody id="myTable"> 
+    </tbody>
+</table>
+
+<script>
+	var trainerArray = []
+    $.ajax({
+        method:'GET',
+        url:'http://127.0.0.1:5000/trainer',
+        success:function(response){
+            trainerArray = response.list
+            buildTable(trainerArray)
+            console.log(trainerArray)
+        }
+    })
+	function buildTable(data){
+		var table = document.getElementById('myTable')
+		for (var i = 0; i < data.length; i++){
+			var row = `<tr>
+							<td>${data[i].name}</td>
+							<td>${data[i].rarity}</td>
+					  </tr>`
+			table.innerHTML += row
+		}
+	}
+
+</script>
